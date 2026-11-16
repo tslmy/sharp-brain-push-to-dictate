@@ -1,0 +1,31 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT
+# SysV/BusyBox init script for the moonstt-dictate hold-to-talk daemon.
+
+DAEMON="/usr/bin/moonstt-dictate"
+PIDFILE="/var/run/moonstt-dictate.pid"
+ARGS=""
+
+[ -r /etc/default/moonstt-dictate ] && . /etc/default/moonstt-dictate
+
+case "$1" in
+	start)
+		printf "Starting moonstt-dictate: "
+		start-stop-daemon -S -b -m -p "$PIDFILE" -x "$DAEMON" -- $ARGS \
+			&& echo "OK" || echo "FAIL"
+		;;
+	stop)
+		printf "Stopping moonstt-dictate: "
+		start-stop-daemon -K -q -p "$PIDFILE"
+		rm -f "$PIDFILE"
+		echo "OK"
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac

@@ -1,0 +1,15 @@
+#!/bin/sh
+# Push-to-talk: press Enter to start recording, Enter again to stop and transcribe.
+# Usage: moonstt-ptt [model-dir]
+DIR=${1:-/usr/share/moonstt}
+WAV=/tmp/ptt.wav
+while :; do
+	printf 'Enter = start recording (Ctrl-C quits) '
+	read -r _ || exit 0
+	arecord -q -D hw:0,1 -f S16_LE -r 44100 -c 2 "$WAV" &
+	REC=$!
+	printf 'recording... Enter = stop '
+	read -r _
+	kill -INT "$REC"; wait "$REC" 2>/dev/null
+	${MOONSTT:-moonstt} -v -m "$DIR" "$WAV"
+done

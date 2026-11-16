@@ -1,0 +1,12 @@
+[Unit]
+Description=moonstt hold-to-talk dictation
+After=sound.target local-fs.target
+
+[Service]
+EnvironmentFile=-/etc/default/moonstt-dictate
+ExecStart=/usr/bin/moonstt-dictate $ARGS
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

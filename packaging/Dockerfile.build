@@ -1,0 +1,5 @@
+# Build environment for the armel (i.MX28) binaries and the .deb packages.
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	make gcc-arm-linux-gnueabi libc6-dev-armel-cross dpkg-dev fakeroot \
+	python3 python3-numpy curl ca-certificates && rm -rf /var/lib/apt/lists/*

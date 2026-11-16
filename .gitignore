@@ -1,0 +1,6 @@
+dist/
+model/
+src/*.o
+src/moonstt
+src/moonstt-dictate
+.dl/

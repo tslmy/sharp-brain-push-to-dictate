@@ -1,0 +1,6 @@
+# Options for moonstt-dictate (see `moonstt-dictate -h`).
+#   -k CODE   talk key (default 172 = KEY_HOMEPAGE; needs the kernel to report it)
+#   -g N      microphone capture gain 0-7 (default 7)
+#   -o MODE   typing backend: auto | uinput | tty (default auto)
+#   -n        do not append a trailing space
+ARGS=""

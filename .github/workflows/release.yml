@@ -1,0 +1,23 @@
+# Tag vMAJOR.MINOR.PATCH to build the .debs and model files and draft a release.
+name: release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build debs (static armel binaries + converted model)
+        run: make deb VERSION=${GITHUB_REF_NAME#v}
+      - name: Checksums
+        run: cd dist && sha256sum *.deb > SHA256SUMS
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            dist/*.deb
+            dist/SHA256SUMS
+            model/model.bin
+            model/tok.bin
+            model/SHA256SUMS

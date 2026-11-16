@@ -1,0 +1,20 @@
+config BR2_PACKAGE_MOONSTT
+	bool "moonstt"
+	help
+	  Offline hold-to-talk dictation for SHARP Brain: Moonshine Tiny
+	  (27M parameters, English) with int8/int16 SMLA kernels for the
+	  ARM926EJ-S, a framebuffer HUD, and a daemon that types the
+	  transcript into the console while a key is held.
+
+	  https://huggingface.co/UsefulSensors/moonshine-tiny
+
+if BR2_PACKAGE_MOONSTT
+
+config BR2_PACKAGE_MOONSTT_MODEL_DIR
+	string "model directory"
+	help
+	  Directory containing model.bin and tok.bin, produced by
+	  tools/build-model.sh. Leave empty to install the model later
+	  (for example from the moonstt-model package or by hand).
+
+endif
